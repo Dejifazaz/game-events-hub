@@ -5,20 +5,22 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
         // Create one admin user if it doesn't already exist
-        User::firstOrCreate(
+        $admin = User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [
                 'name' => 'Admin User',
                 'email_verified_at' => now(),
-                'password' => \Hash::make('password'),
+                'password' => Hash::make('password'),
                 'role' => 'admin',
-                'remember_token' => \Str::random(10),
+                'remember_token' => Str::random(10),
             ]
         );
 
@@ -30,9 +32,9 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        // Create some approved events for the admin
+        // Create 3 approved events for the admin
         Event::factory(3)->create([
-            'user_id' => 1, // assumes admin is ID 1
+            'user_id' => $admin->id,
             'approved' => true,
         ]);
     }

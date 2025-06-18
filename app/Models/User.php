@@ -14,7 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // ✅ Added
+        'role',
     ];
 
     protected $hidden = [
@@ -22,21 +22,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
-    // ✅ User has many events
     public function events()
     {
         return $this->hasMany(Event::class);
     }
 
-    // ✅ Optional helper for admin check
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

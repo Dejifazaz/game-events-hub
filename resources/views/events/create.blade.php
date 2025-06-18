@@ -1,43 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Create Event</h1>
+    <div class="container mx-auto px-4 max-w-lg">
+        <h1 class="text-3xl font-bold mb-6">Create New Event</h1>
 
-        <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
+        @if ($errors->any())
+            <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
 
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
-            </div>
+            @include('events.partials.form', ['event' => null])
 
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea name="description" id="description" rows="4" class="form-control" required>{{ old('description') }}</textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="date" class="form-label">Date</label>
-                <input type="date" name="date" id="date" class="form-control" value="{{ old('date') }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="location" class="form-label">Location</label>
-                <input type="text" name="location" id="location" class="form-control" value="{{ old('location') }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="capacity" class="form-label">Capacity</label>
-                <input type="number" name="capacity" id="capacity" class="form-control" value="{{ old('capacity') }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="image" class="form-label">Event Image</label>
-                <input type="file" name="image" id="image" class="form-control">
-            </div>
-
-            <button type="submit" class="btn btn-success">Create Event</button>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Create Event
+            </button>
         </form>
     </div>
 @endsection
