@@ -15,7 +15,15 @@ class EventSeeder extends Seeder
             User::factory()->count(5)->create();
         }
 
-        // Only generate stadium-based football events with images
-        Event::factory()->count(15)->create();
+        // Create a mix of different football event types
+        $categories = ['league_match', 'cup_match', 'friendly', 'training', 'tournament'];
+        
+        // Create 3 events of each category for a good mix
+        foreach ($categories as $category) {
+            Event::factory()->count(3)->create(['category' => $category]);
+        }
+        
+        // Create a few additional random events
+        Event::factory()->count(5)->create();
     }
 }
