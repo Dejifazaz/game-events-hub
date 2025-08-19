@@ -58,8 +58,7 @@ class EventController extends Controller
             $query->where(function($q) use ($searchTerm) {
                 $q->where('title', 'like', '%' . $searchTerm . '%')
                   ->orWhere('description', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('location', 'like', '%' . $searchTerm . '%')
-                  ->orWhere('category', 'like', '%' . $searchTerm . '%');
+                  ->orWhere('location', 'like', '%' . $searchTerm . '%');
             });
         }
 

@@ -35,16 +35,16 @@ class EventFactory extends Factory
         $eventTypes = [
             'league_match' => [
                 'titles' => [
-                    'Premier League: Manchester United vs Liverpool',
-                    'La Liga: Real Madrid vs Barcelona',
-                    'Bundesliga: Bayern Munich vs Borussia Dortmund',
-                    'Serie A: Juventus vs AC Milan',
-                    'Ligue 1: PSG vs Marseille',
-                    'Premier League: Arsenal vs Chelsea',
-                    'La Liga: Atletico Madrid vs Sevilla',
-                    'Bundesliga: RB Leipzig vs Bayer Leverkusen',
-                    'Serie A: Inter Milan vs Napoli',
-                    'Ligue 1: Lyon vs Monaco'
+                    'League Match: Manchester United vs Liverpool',
+                    'League Match: Real Madrid vs Barcelona',
+                    'League Match: Bayern Munich vs Borussia Dortmund',
+                    'League Match: Juventus vs AC Milan',
+                    'League Match: PSG vs Marseille',
+                    'League Match: Arsenal vs Chelsea',
+                    'League Match: Atletico Madrid vs Sevilla',
+                    'League Match: RB Leipzig vs Bayer Leverkusen',
+                    'League Match: Inter Milan vs Napoli',
+                    'League Match: Lyon vs Monaco'
                 ],
                 'descriptions' => [
                     'A crucial league match that could decide the title race. Both teams are in top form and this promises to be an exciting encounter.',
@@ -56,16 +56,16 @@ class EventFactory extends Factory
             ],
             'cup_match' => [
                 'titles' => [
-                    'Champions League Final: Real Madrid vs Manchester City',
-                    'FA Cup Semi-Final: Arsenal vs Manchester United',
-                    'Copa del Rey Final: Barcelona vs Athletic Bilbao',
-                    'DFB Pokal Final: Bayern Munich vs Borussia Dortmund',
-                    'Coppa Italia Final: Juventus vs Inter Milan',
-                    'Champions League Quarter-Final: PSG vs Bayern Munich',
-                    'Europa League Final: Sevilla vs Roma',
-                    'FA Cup Quarter-Final: Liverpool vs Chelsea',
-                    'Copa del Rey Semi-Final: Real Madrid vs Atletico Madrid',
-                    'DFB Pokal Semi-Final: RB Leipzig vs Bayer Leverkusen'
+                    'Cup Final: Real Madrid vs Manchester City',
+                    'Cup Semi-Final: Arsenal vs Manchester United',
+                    'Cup Final: Barcelona vs Athletic Bilbao',
+                    'Cup Final: Bayern Munich vs Borussia Dortmund',
+                    'Cup Final: Juventus vs Inter Milan',
+                    'Cup Quarter-Final: PSG vs Bayern Munich',
+                    'Cup Final: Sevilla vs Roma',
+                    'Cup Quarter-Final: Liverpool vs Chelsea',
+                    'Cup Semi-Final: Real Madrid vs Atletico Madrid',
+                    'Cup Semi-Final: RB Leipzig vs Bayer Leverkusen'
                 ],
                 'descriptions' => [
                     'The biggest club competition in world football. This final promises to be a clash of titans with everything on the line.',
@@ -77,16 +77,16 @@ class EventFactory extends Factory
             ],
             'friendly' => [
                 'titles' => [
-                    'Pre-Season Friendly: Manchester United vs Real Madrid',
-                    'International Friendly: England vs Germany',
-                    'Charity Match: Legends vs Current Stars',
-                    'Pre-Season Friendly: Barcelona vs Bayern Munich',
-                    'International Friendly: France vs Spain',
-                    'Pre-Season Friendly: Liverpool vs AC Milan',
-                    'Charity Match: All-Stars vs World XI',
-                    'Pre-Season Friendly: PSG vs Juventus',
-                    'International Friendly: Italy vs Netherlands',
-                    'Pre-Season Friendly: Arsenal vs Inter Milan'
+                    'Friendly Match: Manchester United vs Real Madrid',
+                    'Friendly Match: England vs Germany',
+                    'Friendly Match: Legends vs Current Stars',
+                    'Friendly Match: Barcelona vs Bayern Munich',
+                    'Friendly Match: France vs Spain',
+                    'Friendly Match: Liverpool vs AC Milan',
+                    'Friendly Match: All-Stars vs World XI',
+                    'Friendly Match: PSG vs Juventus',
+                    'Friendly Match: Italy vs Netherlands',
+                    'Friendly Match: Arsenal vs Inter Milan'
                 ],
                 'descriptions' => [
                     'A pre-season friendly between two European giants. Perfect for testing new tactics and building fitness.',
@@ -98,16 +98,16 @@ class EventFactory extends Factory
             ],
             'training' => [
                 'titles' => [
-                    'Open Training Session: Manchester United',
-                    'Youth Academy Training: Real Madrid',
-                    'Goalkeeper Training Camp: Bayern Munich',
-                    'Fitness Training Session: Barcelona',
-                    'Tactical Training: Liverpool',
-                    'Youth Development Training: Arsenal',
-                    'Pre-Match Training: PSG',
-                    'Recovery Training Session: Juventus',
-                    'Technical Skills Training: AC Milan',
-                    'Team Building Training: Inter Milan'
+                    'Training Session: Manchester United',
+                    'Training Session: Real Madrid',
+                    'Training Session: Bayern Munich',
+                    'Training Session: Barcelona',
+                    'Training Session: Liverpool',
+                    'Training Session: Arsenal',
+                    'Training Session: PSG',
+                    'Training Session: Juventus',
+                    'Training Session: AC Milan',
+                    'Training Session: Inter Milan'
                 ],
                 'descriptions' => [
                     'An open training session where fans can watch their favorite players prepare for upcoming matches.',
@@ -124,16 +124,16 @@ class EventFactory extends Factory
             ],
             'tournament' => [
                 'titles' => [
-                    'Summer Football Tournament: Champions Cup',
-                    'Youth Tournament: Future Stars Cup',
-                    'International Tournament: Nations Cup',
-                    'Club Tournament: European Super Cup',
-                    'Amateur Tournament: Community Cup',
-                    'Professional Tournament: Elite Cup',
-                    'International Tournament: World Cup Qualifiers',
-                    'Club Tournament: Pre-Season Cup',
-                    'Youth Tournament: Development Cup',
-                    'International Tournament: Continental Cup'
+                    'Tournament: Champions Cup',
+                    'Tournament: Future Stars Cup',
+                    'Tournament: Nations Cup',
+                    'Tournament: European Super Cup',
+                    'Tournament: Community Cup',
+                    'Tournament: Elite Cup',
+                    'Tournament: World Cup Qualifiers',
+                    'Tournament: Pre-Season Cup',
+                    'Tournament: Development Cup',
+                    'Tournament: Continental Cup'
                 ],
                 'descriptions' => [
                     'A prestigious summer tournament featuring top clubs from around the world competing for the Champions Cup.',

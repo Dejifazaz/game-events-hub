@@ -21,7 +21,7 @@
                 <div>
                     <label for="search" class="block text-sm font-medium text-secondary-700 mb-2">Search Events</label>
                     <input type="text" name="search" id="search" value="{{ request('search') }}" 
-                           placeholder="Search by title, description, location, or category..."
+                           placeholder="Search by title, description, or location..."
                            class="w-full border border-secondary-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200" />
                 </div>
                 <div>
