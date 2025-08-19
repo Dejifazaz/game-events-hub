@@ -1,51 +1,56 @@
-@extends('layouts.admin') {{-- Use your admin layout --}}
+@extends('layouts.admin')
 
 @section('title', 'Edit User')
 
 @section('content')
-    <div class="container mx-auto px-4 py-6 max-w-lg">
-        <h1 class="text-3xl font-bold mb-6">Edit User: {{ $user->name }}</h1>
+    <h1 class="text-3xl font-semibold mb-6">Edit User: {{ $user->name }}</h1>
 
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                <ul class="list-disc pl-5">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <form action="{{ route('admin.users.update', $user) }}" method="POST" class="max-w-lg">
+        @csrf
+        @method('PUT')
 
-        <form action="{{ route('admin.users.update', $user) }}" method="POST" class="space-y-6">
-            @csrf
-            @method('PUT')
+        <div class="mb-4">
+            <label class="block mb-1 font-medium" for="name">Name</label>
+            <input
+                type="text"
+                name="name"
+                id="name"
+                value="{{ old('name', $user->name) }}"
+                class="w-full border border-gray-300 rounded px-3 py-2"
+                required
+            />
+            @error('name') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+        </div>
 
-            <div>
-                <label for="name" class="block font-semibold mb-1">Name</label>
-                <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required
-                       class="w-full border border-gray-300 rounded px-3 py-2" />
-            </div>
+        <div class="mb-4">
+            <label class="block mb-1 font-medium" for="email">Email</label>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                value="{{ old('email', $user->email) }}"
+                class="w-full border border-gray-300 rounded px-3 py-2"
+                required
+            />
+            @error('email') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+        </div>
 
-            <div>
-                <label for="email" class="block font-semibold mb-1">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required
-                       class="w-full border border-gray-300 rounded px-3 py-2" />
-            </div>
+        <div class="mb-6">
+            <label class="block mb-1 font-medium" for="role">Role</label>
+            <select
+                name="role"
+                id="role"
+                class="w-full border border-gray-300 rounded px-3 py-2"
+                required
+            >
+                <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
+                <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+            </select>
+            @error('role') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+        </div>
 
-            <div>
-                <label for="role" class="block font-semibold mb-1">Role</label>
-                <select id="role" name="role" required class="w-full border border-gray-300 rounded px-3 py-2">
-                    <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
-                    <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                </select>
-            </div>
-
-            <div class="flex space-x-4">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Update User
-                </button>
-                <a href="{{ route('admin.users.index') }}" class="text-gray-600 hover:underline self-center">Cancel</a>
-            </div>
-        </form>
-    </div>
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">
+            Update User
+        </button>
+    </form>
 @endsection

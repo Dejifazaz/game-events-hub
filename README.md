@@ -1,61 +1,225 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Game Events Hub - Laravel MVC Website
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive event management system built with Laravel following the MVC design pattern. Users can create, view, and manage events with a robust approval system for administrators.
 
-## About Laravel
+## 🎯 Project Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Game Events Hub is a web application that allows users to view and create events (football matches, concerts, fundraisers, etc.). Events require admin approval before being displayed publicly, ensuring quality control and content moderation.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Core Functionality
+- **Event Management**: Full CRUD operations for events
+- **User Authentication**: Three-tier user system (Guest, Registered User, Admin)
+- **Approval System**: Admin approval required for non-admin created events
+- **Image Upload**: Event images with proper storage handling
+- **Search & Filter**: Find events by title and location
+- **Responsive Design**: Mobile-friendly interface
 
-## Learning Laravel
+### User Levels
+- **Guest Users**: View approved events only
+- **Registered Users**: Create, edit, delete their own events
+- **Admin Users**: Approve events, manage users, view all events
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Additional Features
+- **Professional UI**: Modern glassmorphism design with Tailwind CSS
+- **Dashboard Systems**: Separate dashboards for users and admins
+- **User Management**: Admin can view and edit user details
+- **Contact Page**: Basic contact form
+- **Image Helper**: Centralized image handling with placeholders
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Technology Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend**: Laravel 12.x (PHP 8.4)
+- **Frontend**: Blade Templates, Tailwind CSS
+- **Database**: MySQL/SQLite
+- **Authentication**: Laravel Breeze
+- **File Storage**: Laravel Storage
+- **Testing**: Pest PHP
 
-## Laravel Sponsors
+## 📋 Requirements
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP 8.4 or higher
+- Composer
+- MySQL or SQLite
+- Node.js & NPM (for asset compilation)
 
-### Premium Partners
+## 🚀 Installation
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. **Clone the repository**
+   ```bash
+   git clone <your-repository-url>
+   cd game-events-hub
+   ```
 
-## Contributing
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Install Node.js dependencies**
+   ```bash
+   npm install
+   ```
 
-## Code of Conduct
+4. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. **Configure database**
+   Edit `.env` file and set your database credentials:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=game_events_db
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   ```
 
-## Security Vulnerabilities
+6. **Run migrations and seed data**
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. **Create storage link**
+   ```bash
+   php artisan storage:link
+   ```
 
-## License
+8. **Compile assets**
+   ```bash
+   npm run build
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+9. **Start the development server**
+   ```bash
+   php artisan serve
+   ```
+
+## 👤 Default Users
+
+After seeding, you can log in with:
+
+**Admin User:**
+- Email: `admin@example.com`
+- Password: `password`
+
+**Regular Users:**
+- Multiple users are created with random credentials
+- Check the seeder files for details
+
+## 📁 Project Structure
+
+```
+game-events-hub/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── EventController.php          # Main event CRUD
+│   │   ├── UserController.php           # User dashboard
+│   │   └── Admin/                       # Admin controllers
+│   ├── Models/
+│   │   ├── Event.php                    # Event model
+│   │   └── User.php                     # User model
+│   ├── Policies/
+│   │   └── EventPolicy.php              # Authorization policies
+│   └── Helpers/
+│       └── ImageHelper.php              # Image handling
+├── database/
+│   ├── migrations/                      # Database schema
+│   ├── seeders/                         # Sample data
+│   └── factories/                       # Model factories
+├── resources/views/
+│   ├── events/                          # Event views
+│   ├── admin/                           # Admin panel views
+│   ├── user/                            # User dashboard views
+│   └── layouts/                         # Layout templates
+└── routes/
+    └── web.php                          # Web routes
+```
+
+## 🧪 Testing
+
+Run the test suite:
+```bash
+php artisan test
+```
+
+## 📝 Database Schema
+
+### Users Table
+- `id` (Primary Key)
+- `name`
+- `email`
+- `password`
+- `role` (user/admin)
+- `email_verified_at`
+- `remember_token`
+- `created_at`, `updated_at`
+
+### Events Table
+- `id` (Primary Key)
+- `user_id` (Foreign Key to Users)
+- `title`
+- `description`
+- `date`
+- `location`
+- `image` (nullable)
+- `capacity`
+- `approved` (boolean)
+- `created_at`, `updated_at`
+
+## 🔐 Security Features
+
+- **Authentication**: Laravel's built-in authentication system
+- **Authorization**: Policy-based authorization for events
+- **CSRF Protection**: Automatic CSRF token validation
+- **Input Validation**: Server-side validation for all forms
+- **File Upload Security**: Image validation and secure storage
+
+## 🎨 Design Features
+
+- **Responsive Design**: Mobile-first approach
+- **Modern UI**: Glassmorphism effects and gradients
+- **Professional Color Scheme**: Blue and slate color palette
+- **Interactive Elements**: Hover effects and animations
+- **Accessibility**: Proper semantic HTML and ARIA labels
+
+## 📚 References & Resources
+
+### Laravel Documentation
+- [Laravel 12.x Documentation](https://laravel.com/docs/12.x)
+- [Laravel Breeze](https://laravel.com/docs/12.x/starter-kits#laravel-breeze)
+- [Laravel Policies](https://laravel.com/docs/12.x/authorization#creating-policies)
+
+### Frontend Resources
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Blade Templates](https://laravel.com/docs/12.x/blade)
+
+### Tutorials & Guides
+- [Laravel MVC Pattern](https://laravel.com/docs/12.x/architecture-concepts)
+- [Laravel File Storage](https://laravel.com/docs/12.x/filesystem)
+- [Laravel Testing](https://laravel.com/docs/12.x/testing)
+
+### Stack Overflow References
+- Image upload handling in Laravel
+- Blade template best practices
+- Laravel authorization patterns
+
+## 🤝 Contributing
+
+This is an academic project for Laravel MVC assessment. For educational purposes only.
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 👨‍💻 Author
+
+Created as part of Laravel MVC assessment requirements.
+
+---
+
+**Note**: This project demonstrates proficiency in Laravel MVC development, database design, authentication systems, and modern web development practices.
