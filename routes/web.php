@@ -8,8 +8,8 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('events.index');
-});
+    return view('welcome');
+})->name('home');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
@@ -56,3 +56,11 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
 
 // Contact page
 Route::view('/contact', 'contact')->name('contact');
+
+// About page
+Route::view('/about', 'about')->name('about');
+
+// Sitemap
+Route::get('/sitemap', function () {
+    return view('sitemap');
+})->name('sitemap');

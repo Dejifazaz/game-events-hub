@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <!-- Breadcrumbs -->
+        <div class="mb-6">
+            <x-breadcrumbs :items="[
+                ['label' => 'Events', 'url' => route('events.index')]
+            ]" />
+        </div>
+        
         <!-- Header Section -->
         <div class="mb-8">
             <h1 class="text-4xl font-bold gradient-text mb-4">Discover Amazing Events</h1>
