@@ -37,6 +37,14 @@ class EventController extends Controller
         $user = Auth::user();
 
         $locations = Event::select('location')->distinct()->pluck('location');
+        $categories = [
+            'league_match' => 'League Match',
+            'cup_match' => 'Cup Match',
+            'friendly' => 'Friendly Match',
+            'training' => 'Training Session',
+            'tournament' => 'Tournament',
+            'other' => 'Other'
+        ];
 
         if ($user && $user->role === 'admin') {
             $query = Event::query();
@@ -46,16 +54,26 @@ class EventController extends Controller
         }
 
         if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('description', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('location', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('category', 'like', '%' . $searchTerm . '%');
+            });
         }
 
         if ($request->filled('location')) {
             $query->where('location', $request->location);
         }
 
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
         $events = $query->orderBy('date', 'desc')->paginate(10);
 
-        return view('events.index', compact('events', 'locations'));
+        return view('events.index', compact('events', 'locations', 'categories'));
     }
 
     /**
@@ -91,6 +109,7 @@ class EventController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'category' => 'required|in:league_match,cup_match,friendly,training,tournament,other',
             'date' => 'required|date',
             'location' => 'required|string|max:255',
             'capacity' => 'required|integer|min:1',
@@ -105,6 +124,7 @@ class EventController extends Controller
         Event::create([
             'title' => $request->title,
             'description' => $request->description,
+            'category' => $request->category,
             'date' => $request->date,
             'location' => $request->location,
             'capacity' => $request->capacity,

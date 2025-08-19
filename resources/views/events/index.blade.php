@@ -17,12 +17,22 @@
 
         <!-- Filters -->
         <div class="glass-effect rounded-2xl p-6 mb-8 card-hover">
-            <form method="GET" action="{{ route('events.index') }}" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <form method="GET" action="{{ route('events.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                     <label for="search" class="block text-sm font-medium text-secondary-700 mb-2">Search Events</label>
                     <input type="text" name="search" id="search" value="{{ request('search') }}" 
-                           placeholder="Search by title..."
+                           placeholder="Search by title, description, location, or category..."
                            class="w-full border border-secondary-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200" />
+                </div>
+                <div>
+                    <label for="category" class="block text-sm font-medium text-secondary-700 mb-2">Category</label>
+                    <select name="category" id="category" 
+                            class="w-full border border-secondary-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200">
+                        <option value="">All categories</option>
+                        @foreach($categories as $key => $category)
+                            <option value="{{ $key }}" {{ request('category')===$key ? 'selected' : '' }}>{{ $category }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div>
                     <label for="location" class="block text-sm font-medium text-secondary-700 mb-2">Location</label>
@@ -34,13 +44,20 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="flex items-end">
-                    <button type="submit" class="w-full btn-primary px-6 py-3 rounded-xl font-medium transition-all duration-200">
+                <div class="flex items-end space-x-2">
+                    <button type="submit" class="flex-1 btn-primary px-6 py-3 rounded-xl font-medium transition-all duration-200">
                         <svg class="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                         Search Events
                     </button>
+                    @if(request('search') || request('location') || request('category'))
+                        <a href="{{ route('events.index') }}" class="btn-secondary px-4 py-3 rounded-xl font-medium transition-all duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </a>
+                    @endif
                 </div>
             </form>
         </div>
@@ -53,6 +70,40 @@
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                     </svg>
                     <p class="text-success-800 font-medium">{{ session('success') }}</p>
+                </div>
+            </div>
+        @endif
+
+        <!-- Search Results Info -->
+        @if(request('search') || request('location'))
+            <div class="glass-effect rounded-xl p-4 mb-8 border-l-4 border-primary-500 bg-primary-50">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-primary-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <p class="text-primary-800 font-medium">
+                            @if(request('search') && request('location') && request('category'))
+                                Showing results for "{{ request('search') }}" in {{ request('location') }} - {{ $categories[request('category')] }}
+                            @elseif(request('search') && request('location'))
+                                Showing results for "{{ request('search') }}" in {{ request('location') }}
+                            @elseif(request('search') && request('category'))
+                                Showing results for "{{ request('search') }}" in {{ $categories[request('category')] }}
+                            @elseif(request('location') && request('category'))
+                                Showing {{ $categories[request('category')] }} events in {{ request('location') }}
+                            @elseif(request('search'))
+                                Showing results for "{{ request('search') }}"
+                            @elseif(request('location'))
+                                Showing events in {{ request('location') }}
+                            @elseif(request('category'))
+                                Showing {{ $categories[request('category')] }} events
+                            @endif
+                            <span class="text-primary-600">({{ $events->total() }} {{ Str::plural('event', $events->total()) }})</span>
+                        </p>
+                    </div>
+                    <a href="{{ route('events.index') }}" class="text-primary-600 hover:text-primary-800 text-sm font-medium">
+                        Clear filters
+                    </a>
                 </div>
             </div>
         @endif
@@ -80,36 +131,30 @@
                                 <img src="{{ \App\Helpers\ImageHelper::getEventImageUrl($event->image) }}"
                                      alt="{{ $event->title }}"
                                      class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-                                @if(!$event->approved)
-                                    <div class="absolute top-3 right-3">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-800 border border-warning-200">
-                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            Pending
-                                        </span>
-                                    </div>
-                                @endif
                             </div>
                         @else
                             <div class="relative h-48 bg-gradient-to-br from-secondary-100 to-secondary-200 flex items-center justify-center">
                                 <svg class="w-16 h-16 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                 </svg>
-                                @if(!$event->approved)
-                                    <div class="absolute top-3 right-3">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-800 border border-warning-200">
-                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            Pending
-                                        </span>
-                                    </div>
-                                @endif
                             </div>
                         @endif
                         
                         <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border {{ $event->category_color }}">
+                                    {{ $event->category_display_name }}
+                                </span>
+                                @if(!$event->approved)
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-800 border border-warning-200">
+                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        Pending
+                                    </span>
+                                @endif
+                            </div>
+                            
                             <h2 class="text-xl font-bold text-secondary-800 mb-2 line-clamp-2">
                                 {{ $event->title }}
                             </h2>

@@ -39,6 +39,25 @@
                         @enderror
                     </div>
 
+                    {{-- Category --}}
+                    <div>
+                        <label for="category" class="block font-semibold mb-1">Event Category</label>
+                        <select name="category" id="category" 
+                                class="w-full border rounded px-3 py-2 @error('category') border-red-500 @enderror"
+                                required>
+                            <option value="">Select a category</option>
+                            <option value="league_match" {{ old('category', $event->category ?? '') == 'league_match' ? 'selected' : '' }}>League Match</option>
+                            <option value="cup_match" {{ old('category', $event->category ?? '') == 'cup_match' ? 'selected' : '' }}>Cup Match</option>
+                            <option value="friendly" {{ old('category', $event->category ?? '') == 'friendly' ? 'selected' : '' }}>Friendly Match</option>
+                            <option value="training" {{ old('category', $event->category ?? '') == 'training' ? 'selected' : '' }}>Training Session</option>
+                            <option value="tournament" {{ old('category', $event->category ?? '') == 'tournament' ? 'selected' : '' }}>Tournament</option>
+                            <option value="other" {{ old('category', $event->category ?? '') == 'other' ? 'selected' : '' }}>Other</option>
+                        </select>
+                        @error('category')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     {{-- Date --}}
                     <div>
                         <label for="date" class="block font-semibold mb-1">Event Date</label>
